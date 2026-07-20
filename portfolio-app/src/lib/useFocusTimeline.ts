@@ -206,6 +206,10 @@ export function useFocusTimeline(
 
   const entryHandlers = (i: number) => ({
     tabIndex: 0,
+    onPointerEnter: () => {
+      // Hovering any entry makes it active immediately.
+      if (!passive) setActive(i);
+    },
     onFocus: () => {
       setFocused(i);
       setActive(i);
