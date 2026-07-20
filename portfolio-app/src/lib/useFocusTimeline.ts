@@ -60,6 +60,7 @@ export function useFocusTimeline(
   const activeRef = useRef(active);
   activeRef.current = active;
   const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const passive = isTouch || reduced;
 
@@ -207,8 +208,15 @@ export function useFocusTimeline(
   const entryHandlers = (i: number) => ({
     tabIndex: 0,
     onPointerEnter: () => {
-      // Hovering any entry makes it active immediately.
-      if (!passive) setActive(i);
+      // Debounce: only switch active after the mouse settles for 80ms.
+      // This prevents jarring rapid-fire switches when sweeping across entries.
+      if (hoverTimer.current) clearTimeout(hoverTimer.current);
+      if (!passive) {
+        hoverTimer.current = setTimeout(() => {
+          setActive(i);
+          hoverTimer.current = null;
+        }, 80);
+      }
     },
     onFocus: () => {
       setFocused(i);
@@ -239,6 +247,7 @@ export function useFocusTimeline(
     return () => {
       document.removeEventListener("focusin", onFocusIn);
       if (leaveTimer.current) clearTimeout(leaveTimer.current);
+      if (hoverTimer.current) clearTimeout(hoverTimer.current);
     };
   }, [passive, exitFocus]);
 
