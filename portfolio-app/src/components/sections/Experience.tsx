@@ -14,11 +14,7 @@ export function Experience() {
     containerHandlers,
     entryHandlers,
     getVisual,
-    translateY,
   } = useFocusTimeline(experience.length, { capture: false });
-
-  // translateY is returned from the hook even with capture:false so the
-  // active entry is smoothly centred when the section is in focus-mode.
 
   return (
     <div
@@ -28,10 +24,6 @@ export function Experience() {
     >
       <div
         ref={trackRef}
-        style={{
-          transform: `translateY(${translateY}px)`,
-          transition: "transform 0.4s ease",
-        }}
         className="relative pl-9 sm:pl-10 flex flex-col gap-3"
       >
         {/* Timeline vertical bar */}
@@ -50,7 +42,7 @@ export function Experience() {
                 opacity: visual.opacity,
                 filter: visual.blur > 0 ? `blur(${visual.blur}px)` : "none",
                 transform: `scale(${visual.scale})`,
-                transition: "opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease",
+                transition: "opacity 0.5s cubic-bezier(0.4,0,0.2,1), filter 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.35s cubic-bezier(0.4,0,0.2,1)",
                 zIndex: visual.elevated ? 10 : 1,
               }}
               className="relative grid grid-cols-1 md:grid-cols-[180px_1fr] gap-3 md:gap-8 py-6.5 outline-none origin-left"
@@ -87,7 +79,7 @@ export function Experience() {
                 </h4>
                 <ul
                   className={cn(
-                    "flex flex-col gap-3.5 list-none overflow-hidden transition-all duration-400 ease-in-out",
+                    "flex flex-col gap-3.5 list-none overflow-hidden transition-[max-height,opacity,margin] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
                     visual.expanded
                       ? "mt-4.5 max-h-[600px] opacity-100"
                       : "mt-0 max-h-0 opacity-0 pointer-events-none"

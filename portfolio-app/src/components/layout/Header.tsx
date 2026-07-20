@@ -46,12 +46,13 @@ export function Header() {
         <a
           href="#top"
           onClick={() => setOpen(false)}
-          className="flex items-center gap-3 font-display font-bold tracking-tight"
+          className="group flex items-center gap-2.5 font-display font-semibold tracking-tight"
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-mint text-small font-extrabold text-bg">
-            FD
+          <span className="relative flex h-2 w-2 shrink-0">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-50 duration-1000 group-hover:opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-mint" />
           </span>
-          <span className="text-[15px]">Faruk Selim Duman</span>
+          <span className="text-[15px] text-text">Faruk Selim Duman</span>
         </a>
 
         <div className="flex items-center gap-3 sm:gap-6">

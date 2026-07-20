@@ -59,6 +59,8 @@ export function useFocusTimeline(
   const lockUntil = useRef(0);
   const activeRef = useRef(active);
   activeRef.current = active;
+  const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const passive = isTouch || reduced;
 
@@ -178,10 +180,22 @@ export function useFocusTimeline(
 
   const containerHandlers = {
     onPointerEnter: () => {
+      // Cancel any pending leave timer so re-entering doesn't reset.
+      if (leaveTimer.current) {
+        clearTimeout(leaveTimer.current);
+        leaveTimer.current = null;
+      }
       if (!passive) enterFocus();
     },
     onPointerLeave: () => {
-      if (!passive && focused === null) exitFocus();
+      if (!passive && focused === null) {
+        // Wait 1 second before exiting — snaps back instantly once timer fires.
+        leaveTimer.current = setTimeout(() => {
+          exitFocus();
+          setActive(0);
+          leaveTimer.current = null;
+        }, 1000);
+      }
     },
     onKeyDown: (e: React.KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -193,6 +207,17 @@ export function useFocusTimeline(
 
   const entryHandlers = (i: number) => ({
     tabIndex: 0,
+    onPointerEnter: () => {
+      // Debounce: only switch active after the mouse settles for 80ms.
+      // This prevents jarring rapid-fire switches when sweeping across entries.
+      if (hoverTimer.current) clearTimeout(hoverTimer.current);
+      if (!passive) {
+        hoverTimer.current = setTimeout(() => {
+          setActive(i);
+          hoverTimer.current = null;
+        }, 80);
+      }
+    },
     onFocus: () => {
       setFocused(i);
       setActive(i);
@@ -219,7 +244,11 @@ export function useFocusTimeline(
       }
     };
     document.addEventListener("focusin", onFocusIn);
-    return () => document.removeEventListener("focusin", onFocusIn);
+    return () => {
+      document.removeEventListener("focusin", onFocusIn);
+      if (leaveTimer.current) clearTimeout(leaveTimer.current);
+      if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    };
   }, [passive, exitFocus]);
 
   const getVisual = useCallback(
