@@ -14,7 +14,11 @@ export function Experience() {
     containerHandlers,
     entryHandlers,
     getVisual,
+    translateY,
   } = useFocusTimeline(experience.length, { capture: false });
+
+  // translateY is returned from the hook even with capture:false so the
+  // active entry is smoothly centred when the section is in focus-mode.
 
   return (
     <div
@@ -24,6 +28,10 @@ export function Experience() {
     >
       <div
         ref={trackRef}
+        style={{
+          transform: `translateY(${translateY}px)`,
+          transition: "transform 0.4s ease",
+        }}
         className="relative pl-9 sm:pl-10 flex flex-col gap-3"
       >
         {/* Timeline vertical bar */}
@@ -77,7 +85,14 @@ export function Experience() {
                 <h4 className="font-display font-semibold text-[17px] text-mint">
                   {t(e.role)}
                 </h4>
-                <ul className="mt-4.5 flex flex-col gap-3.5 list-none">
+                <ul
+                  className={cn(
+                    "flex flex-col gap-3.5 list-none overflow-hidden transition-all duration-400 ease-in-out",
+                    visual.expanded
+                      ? "mt-4.5 max-h-[600px] opacity-100"
+                      : "mt-0 max-h-0 opacity-0 pointer-events-none"
+                  )}
+                >
                   {e.bullets.map((b, bIdx) => (
                     <li
                       key={bIdx}

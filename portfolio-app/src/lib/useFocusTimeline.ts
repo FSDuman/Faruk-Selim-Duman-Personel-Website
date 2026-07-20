@@ -44,6 +44,7 @@ export function useFocusTimeline(
 ): FocusTimeline {
   const [active, setActive] = useState(0);
   const [mode, setMode] = useState<TimelineMode>("resting");
+  const modeRef = useRef<TimelineMode>("resting");
   const [translateY, setTranslateY] = useState(0);
   const [focused, setFocused] = useState<number | null>(null);
 
@@ -84,8 +85,12 @@ export function useFocusTimeline(
     []
   );
 
-  const enterFocus = useCallback(() => setMode("focus"), []);
+  const enterFocus = useCallback(() => {
+    modeRef.current = "focus";
+    setMode("focus");
+  }, []);
   const exitFocus = useCallback(() => {
+    modeRef.current = "resting";
     setMode("resting");
     setTranslateY(0);
   }, []);
@@ -122,7 +127,7 @@ export function useFocusTimeline(
   // Recompute the single track transform so the active entry lands on the focal
   // line (container centre). offsetTop is transform-independent, so this is stable.
   useLayoutEffect(() => {
-    if (mode !== "focus" || passive || !capture) {
+    if (mode !== "focus" || passive) {
       setTranslateY(0);
       return;
     }
@@ -142,7 +147,7 @@ export function useFocusTimeline(
     if (!container) return;
 
     const onWheel = (e: WheelEvent) => {
-      if (mode !== "focus") return;
+      if (modeRef.current !== "focus") return;
       const dir = Math.sign(e.deltaY);
       if (dir === 0) return;
       const next = activeRef.current + dir;
@@ -160,7 +165,7 @@ export function useFocusTimeline(
 
     container.addEventListener("wheel", onWheel, { passive: false });
     return () => container.removeEventListener("wheel", onWheel);
-  }, [capture, passive, mode, count, exitFocus]);
+  }, [capture, passive, count, exitFocus]);
 
   const move = useCallback(
     (dir: number) => {
