@@ -3,40 +3,42 @@
 name: Deploy Next.js site to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
+
+    # 1. YENİLİK: Bütün işlemlere "portfolio-app" klasörünün içinde çalışmasını söylüyoruz.
+    defaults:
+      run:
+        working-directory: ./portfolio-app
+
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
       - name: Detect package manager
         id: detect-package-manager
         run: |
-          if [ -f "${{ github.workspace }}/yarn.lock" ]; then
+          # 2. YENİLİK: Dosyaları ana dizin yerine portfolio-app içinde arıyoruz.
+          if [ -f "${{ github.workspace }}/portfolio-app/yarn.lock" ]; then
             echo "manager=yarn" >> $GITHUB_OUTPUT
             echo "command=install" >> $GITHUB_OUTPUT
             echo "runner=yarn" >> $GITHUB_OUTPUT
             exit 0
-          elif [ -f "${{ github.workspace }}/package.json" ]; then
+          elif [ -f "${{ github.workspace }}/portfolio-app/package.json" ]; then
             echo "manager=npm" >> $GITHUB_OUTPUT
             echo "command=ci" >> $GITHUB_OUTPUT
             echo "runner=npx --no-install" >> $GITHUB_OUTPUT
@@ -45,33 +47,41 @@ jobs:
             echo "Unable to determine package manager"
             exit 1
           fi
+
       - name: Setup Node
         uses: actions/setup-node@v5
         with:
           node-version: "22"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
+          # Node önbelleği için kilit dosyasının yerini gösterdik
+          cache-dependency-path: ./portfolio-app/package-lock.json
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
           static_site_generator: next
+
       - name: Restore cache
         uses: actions/cache@v5
         with:
-          path: |
-            .next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          # Next.js önbellek klasörünün yerini güncelledik
+          path: portfolio-app/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('portfolio-app/**/package-lock.json', 'portfolio-app/**/yarn.lock') }}-${{ hashFiles('portfolio-app/**.[jt]s', 'portfolio-app/**.[jt]sx') }}
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
+            ${{ runner.os }}-nextjs-${{ hashFiles('portfolio-app/**/package-lock.json', 'portfolio-app/**/yarn.lock') }}-
+
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          # 3. YENİLİK: Build edildikten sonra çıkacak "out" klasörünün yerini gösterdik
+          path: ./portfolio-app/out
 
-  # Deployment job
   deploy:
     environment:
       name: github-pages
