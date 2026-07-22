@@ -4,9 +4,11 @@ import { profile } from "@/data/profile";
 import { useLocale } from "@/lib/locale-context";
 import { ui } from "@/lib/i18n";
 import { Reveal } from "@/components/ui/Motion";
+import { useMagneticHover } from "@/lib/useMagneticHover";
 
 export function Contact() {
   const { t } = useLocale();
+  const magnetic = useMagneticHover();
 
   const contactLinks = [
     { label: "LinkedIn ↗", href: `https://${profile.linkedin}` },
@@ -45,7 +47,10 @@ export function Contact() {
         <div className="mt-10">
           <a
             href={`mailto:${profile.email}`}
-            className="inline-flex items-center gap-2.5 bg-accent text-bg font-display font-bold text-body px-8 py-4.5 rounded-xl hover:scale-[1.02] hover:shadow-[0_8px_32px_rgba(91,140,255,0.35)] transition-all duration-300"
+            ref={magnetic.ref as React.Ref<HTMLAnchorElement>}
+            style={magnetic.style}
+            {...magnetic.handlers}
+            className="inline-flex items-center gap-2.5 bg-accent text-bg font-display font-bold text-body px-8 py-4.5 rounded-xl hover:shadow-[0_8px_32px_rgba(91,140,255,0.35)] transition-shadow duration-300"
           >
             <span className="text-lg">✉</span>
             {profile.email}
