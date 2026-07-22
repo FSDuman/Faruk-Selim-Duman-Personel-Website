@@ -8,6 +8,7 @@ import { heroStats } from "@/data/hero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { Reveal } from "@/components/ui/Motion";
 
 export function Hero() {
   const { t } = useLocale();
@@ -28,40 +29,49 @@ export function Hero() {
 
       <Container className="relative grid grid-cols-1 items-end gap-12 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="relative z-10">
-          <div className="mb-7 flex flex-wrap items-center gap-4">
-            <Badge tone="accent" dot className="animate-fadeUp">
+          <Reveal className="mb-7 flex flex-wrap items-center gap-4">
+            <Badge tone="accent" dot>
               {t(ui.heroBadge)}
             </Badge>
             <span className="font-display text-xs uppercase tracking-[0.15em] text-text-secondary/70">
               {t(ui.labelSince)}
             </span>
-          </div>
+          </Reveal>
 
-          <h1 className="font-display text-[clamp(3.25rem,8.4vw,7.75rem)] font-extrabold leading-[0.9] tracking-[-0.06em]">
-            <span className="block text-white">FARUK</span>
-            <span className="block text-white">SELIM</span>
-            <span className="block text-accent">
-              DUMAN<span className="text-text-secondary/40">.</span>
-            </span>
-          </h1>
+          <Reveal delay={0.08}>
+            <h1 className="font-display text-[clamp(3.25rem,8.4vw,7.75rem)] font-extrabold leading-[0.9] tracking-[-0.06em]">
+              <span className="block text-white">FARUK</span>
+              <span className="block text-white">SELIM</span>
+              <span className="block text-accent">
+                DUMAN<span className="text-text-secondary/40">.</span>
+              </span>
+            </h1>
+          </Reveal>
 
-          <p className="mt-6 max-w-xl font-display text-[clamp(0.95rem,1.7vw,1.25rem)] font-semibold leading-snug text-text">
-            {t(ui.heroTitle)}
-          </p>
-          <p className="mt-5 max-w-lg text-pretty text-[15.5px] leading-relaxed text-text-secondary">
-            {t(ui.heroBlurb)}
-          </p>
+          <Reveal delay={0.18}>
+            <p className="mt-6 max-w-xl font-display text-[clamp(0.95rem,1.7vw,1.25rem)] font-semibold leading-snug text-text">
+              {t(ui.heroTitle)}
+            </p>
+          </Reveal>
+          <Reveal delay={0.24}>
+            <p className="mt-5 max-w-lg text-pretty text-[15.5px] leading-relaxed text-text-secondary">
+              {t(ui.heroBlurb)}
+            </p>
+          </Reveal>
 
-          <div className="mt-8 flex flex-wrap gap-3.5">
+          <Reveal delay={0.32} className="mt-8 flex flex-wrap gap-3.5">
             <Button href="#work" variant="primary">
               {t(ui.ctaProjects)} →
             </Button>
             <Button href="#contact" variant="ghost">
               {t(ui.ctaContact)}
             </Button>
-          </div>
+          </Reveal>
 
-          <div className="mt-10 flex flex-wrap gap-10 border-t border-line pt-6.5">
+          <Reveal
+            delay={0.4}
+            className="mt-10 flex flex-wrap gap-10 border-t border-line pt-6.5"
+          >
             {heroStats.map((s, i) => (
               <div key={i}>
                 <div className="font-display text-[30px] font-extrabold leading-none text-white">
@@ -72,10 +82,10 @@ export function Hero() {
                 </div>
               </div>
             ))}
-          </div>
+          </Reveal>
         </div>
 
-        <div className="relative self-end">
+        <Reveal delay={0.15} className="relative self-end">
           <span className="absolute -top-8 right-0.5 font-display text-xs tracking-[0.2em] text-text-secondary/60">
             {t(ui.labelYear)}
           </span>
@@ -102,7 +112,7 @@ export function Hero() {
             </div>
           </div>
           <div className="absolute -bottom-3.5 -right-3.5 -z-10 h-[120px] w-[120px] rounded-2xl border border-accent opacity-35" />
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

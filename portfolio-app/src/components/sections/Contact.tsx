@@ -3,6 +3,7 @@
 import { profile } from "@/data/profile";
 import { useLocale } from "@/lib/locale-context";
 import { ui } from "@/lib/i18n";
+import { Reveal } from "@/components/ui/Motion";
 
 export function Contact() {
   const { t } = useLocale();
@@ -18,12 +19,13 @@ export function Contact() {
       <div
         aria-hidden
         style={{
-          background: "radial-gradient(circle, rgba(127, 209, 185, 0.12), transparent 65%)",
+          background:
+            "radial-gradient(circle, rgba(91, 140, 255, 0.12), transparent 65%)",
         }}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[400px] pointer-events-none select-none"
       />
 
-      <div className="relative z-10">
+      <Reveal className="relative z-10">
         {/* Kicker */}
         <p className="font-display font-medium uppercase text-kicker text-accent">
           {t(ui.contactKicker)}
@@ -43,7 +45,7 @@ export function Contact() {
         <div className="mt-10">
           <a
             href={`mailto:${profile.email}`}
-            className="inline-flex items-center gap-2.5 bg-accent text-bg font-display font-bold text-body px-8 py-4.5 rounded-xl hover:scale-[1.02] hover:shadow-[0_8px_32px_rgba(127,209,185,0.35)] transition-all duration-300"
+            className="inline-flex items-center gap-2.5 bg-accent text-bg font-display font-bold text-body px-8 py-4.5 rounded-xl hover:scale-[1.02] hover:shadow-[0_8px_32px_rgba(91,140,255,0.35)] transition-all duration-300"
           >
             <span className="text-lg">✉</span>
             {profile.email}
@@ -64,7 +66,7 @@ export function Contact() {
             </a>
           ))}
         </div>
-      </div>
+      </Reveal>
     </div>
   );
 }
