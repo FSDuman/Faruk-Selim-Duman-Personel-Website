@@ -1,7 +1,7 @@
 import { cn } from "@/lib/cn";
 
 // Centered page shell at the shared max width. `bleed` drops horizontal padding
-// for full-width children (e.g. the 3D hero canvas).
+// for full-width children.
 export function Container({
   children,
   className,

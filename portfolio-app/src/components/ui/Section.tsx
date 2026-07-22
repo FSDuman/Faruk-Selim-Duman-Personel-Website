@@ -24,7 +24,7 @@ export function Section({
         {(kicker || title || lead) && (
           <header className="mb-14 max-w-prose">
             {kicker && (
-              <p className="font-display font-medium uppercase text-kicker text-mint">
+              <p className="font-display font-medium uppercase text-kicker text-accent">
                 {kicker}
               </p>
             )}

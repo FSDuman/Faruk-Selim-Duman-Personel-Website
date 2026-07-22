@@ -1,10 +1,10 @@
 import { cn } from "@/lib/cn";
 
-type Tone = "mint" | "coral" | "neutral";
+type Tone = "accent" | "coral" | "neutral";
 
 const tones: Record<Tone, string> = {
-  // mint = interactive/primary status; coral = emphasis only; neutral = quiet meta.
-  mint: "border-mint/25 bg-mint/[0.08] text-mint",
+  // accent = interactive/primary status; coral = emphasis only; neutral = quiet meta.
+  accent: "border-accent/25 bg-accent/[0.08] text-accent",
   coral: "border-coral/25 bg-coral/[0.08] text-coral",
   neutral: "border-line bg-white/[0.03] text-text-secondary",
 };
@@ -32,7 +32,7 @@ export function Badge({
         <span
           className={cn(
             "h-1.5 w-1.5 rounded-full",
-            tone === "coral" ? "bg-coral" : "bg-mint"
+            tone === "coral" ? "bg-coral" : "bg-accent"
           )}
         />
       )}

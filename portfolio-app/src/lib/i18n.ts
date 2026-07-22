@@ -14,7 +14,7 @@ export const ui: Record<string, Localized> = {
   navExperience: { en: "Experience", tr: "Deneyim" },
   navWork: { en: "Case Studies", tr: "Projeler" },
   navContact: { en: "Contact", tr: "İletişim" },
-  ctaProjects: { en: "View projects", tr: "Projeleri gör" },
+  ctaProjects: { en: "View case studies", tr: "Projeleri gör" },
   ctaContact: { en: "Get in touch", tr: "İletişime geç" },
   langLabel: { en: "Switch language", tr: "Dili değiştir" },
   skipToContent: { en: "Skip to content", tr: "İçeriğe geç" },
@@ -24,25 +24,23 @@ export const ui: Record<string, Localized> = {
   },
 
   heroBadge: {
-    en: "Available for consulting engagements",
-    tr: "Danışmanlık projelerine açık",
+    en: "Available for consulting",
+    tr: "Danışmanlığa açık",
+  },
+  labelSince: {
+    en: "Consulting since 2023",
+    tr: "2023'ten beri danışmanlık",
   },
   heroTitle: {
-    en: "Industrial Engineer · Salesforce & Digital Transformation",
-    tr: "Endüstri Mühendisi · Salesforce & Dijital Dönüşüm",
+    en: "Industrial Engineer · Salesforce & Digital Transformation Consultant",
+    tr: "Endüstri Mühendisi · Salesforce & Dijital Dönüşüm Danışmanı",
   },
-  heroIntro1: {
-    en: "I lead Salesforce and digital-transformation projects end to end —",
-    tr: "Salesforce ve dijital dönüşüm projelerini uçtan uca yönetiyorum —",
+  heroBlurb: {
+    en: "I lead Salesforce and digital-transformation projects end to end — from requirements analysis to implementation and user adoption — for clients across the UK, Germany and Türkiye.",
+    tr: "Salesforce ve dijital dönüşüm projelerini uçtan uca yönetiyorum — gereksinim analizinden uygulamaya ve kullanıcı adaptasyonuna kadar — İngiltere, Almanya ve Türkiye’deki müşteriler için.",
   },
-  heroIntro2: {
-    en: "from requirements analysis to implementation and user adoption.",
-    tr: "gereksinim analizinden uygulamaya ve kullanıcı adaptasyonuna kadar.",
-  },
-  heroHint: {
-    en: "Move your cursor to reveal the network",
-    tr: "Ağı ortaya çıkarmak için imleci hareket ettir",
-  },
+  labelYear: { en: "©2026", tr: "©2026" },
+  stackLabel: { en: "Ecosystem", tr: "Ekosistem" },
 
   // About Section
   aboutKicker: { en: "About", tr: "Hakkımda" },
@@ -71,6 +69,18 @@ export const ui: Record<string, Localized> = {
     en: "A few representative outcomes from my consulting work — measurable results, delivered end to end.",
     tr: "Danışmanlık çalışmalarımdan öne çıkan birkaç sonuç — uçtan uca teslim edilmiş, ölçülebilir çıktılar.",
   },
+
+  // Off the clock section
+  offKicker: { en: "Off the clock", tr: "Mesai dışı" },
+  offTitle: {
+    en: "I also draw creatures in Procreate.",
+    tr: "Ayrıca Procreate’te yaratıklar çiziyorum.",
+  },
+  offP: {
+    en: "When I’m not designing Flows and data models, I’m drawing. This little guy is one of mine — no roadmap, no requirements doc, just for the fun of making something.",
+    tr: "Flow ve veri modeli tasarlamadığım zamanlarda çizim yapıyorum. Bu küçük dostum benim çizimlerimden biri — yol haritası yok, gereksinim dokümanı yok, sadece bir şeyler üretmenin keyfi için.",
+  },
+  offNote: { en: "Personal work · Procreate", tr: "Kişisel çalışma · Procreate" },
 
   // Contact Section
   contactKicker: { en: "Contact", tr: "İletişim" },

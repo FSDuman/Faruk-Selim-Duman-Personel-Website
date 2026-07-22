@@ -8,17 +8,21 @@ export function Work() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {projects.map((cs) => (
+      {projects.map((cs, i) => (
         <div
           key={cs.id}
           style={{
             background: "linear-gradient(160deg, rgba(20, 28, 48, 0.6), rgba(11, 16, 30, 0.4))",
           }}
-          className="border border-line rounded-2xl p-8 hover:-translate-y-1 hover:border-mint/30 transition-all duration-300 group"
+          className="relative overflow-hidden border border-line rounded-2xl p-8 hover:-translate-y-1 hover:border-accent/30 transition-all duration-300 group"
         >
+          <span className="absolute top-5.5 right-6.5 font-display font-extrabold text-[44px] leading-none text-white/5">
+            {String(i + 1).padStart(2, "0")}
+          </span>
+
           {/* Metric Highlight */}
           <div className="flex items-baseline gap-2.5 mb-5.5">
-            <span className="font-display font-extrabold text-[38px] text-mint leading-none">
+            <span className="font-display font-extrabold text-[38px] text-accent leading-none">
               {cs.metric}
             </span>
             <span className="text-xs font-semibold text-text-secondary">
@@ -27,7 +31,7 @@ export function Work() {
           </div>
 
           {/* Project Title */}
-          <h3 className="font-display font-semibold text-[19px] text-text mb-3 leading-snug group-hover:text-mint-hi transition-colors">
+          <h3 className="font-display font-semibold text-[19px] text-text mb-3 leading-snug group-hover:text-accent-hi transition-colors">
             {t(cs.title)}
           </h3>
 

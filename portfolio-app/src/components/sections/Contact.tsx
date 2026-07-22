@@ -25,7 +25,7 @@ export function Contact() {
 
       <div className="relative z-10">
         {/* Kicker */}
-        <p className="font-display font-medium uppercase text-kicker text-mint">
+        <p className="font-display font-medium uppercase text-kicker text-accent">
           {t(ui.contactKicker)}
         </p>
 
@@ -43,7 +43,7 @@ export function Contact() {
         <div className="mt-10">
           <a
             href={`mailto:${profile.email}`}
-            className="inline-flex items-center gap-2.5 bg-mint text-bg font-display font-bold text-body px-8 py-4.5 rounded-xl hover:scale-[1.02] hover:shadow-[0_8px_32px_rgba(127,209,185,0.35)] transition-all duration-300"
+            className="inline-flex items-center gap-2.5 bg-accent text-bg font-display font-bold text-body px-8 py-4.5 rounded-xl hover:scale-[1.02] hover:shadow-[0_8px_32px_rgba(127,209,185,0.35)] transition-all duration-300"
           >
             <span className="text-lg">✉</span>
             {profile.email}
@@ -58,7 +58,7 @@ export function Contact() {
               href={cl.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-5 py-3 rounded-lg border border-line bg-white/[0.02] text-small font-medium text-text-secondary transition-colors hover:border-mint hover:text-text"
+              className="inline-flex items-center px-5 py-3 rounded-lg border border-line bg-white/[0.02] text-small font-medium text-text-secondary transition-colors hover:border-accent hover:text-text"
             >
               {cl.label}
             </a>

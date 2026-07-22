@@ -1,8 +1,7 @@
 import type { Config } from "tailwindcss";
 
 // Single source of truth for color + type tokens. Components reference these
-// tokens only — no raw hex in JSX/CSS. (GPU material colors in the R3F scene
-// are the one intentional exception: they are shader values, not styling.)
+// tokens only — no raw hex in JSX/CSS.
 const config: Config = {
   content: [
     "./src/app/**/*.{ts,tsx,mdx}",
@@ -11,25 +10,25 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#0B0F14",
-        surface: "#131A22",
+        bg: "#070B16",
+        surface: "#0E1526",
         text: {
-          DEFAULT: "#E8EDF2",
-          secondary: "#8A97A6",
+          DEFAULT: "#E8ECF4",
+          secondary: "#A9B6CD",
         },
-        mint: {
-          DEFAULT: "#7FD1B9",
-          hi: "#9BE0CB",
+        accent: {
+          DEFAULT: "#5B8CFF",
+          hi: "#8FB4FF",
         },
         coral: "#E39A94",
-        line: "rgba(232,237,242,0.08)",
+        line: "rgba(255,255,255,0.08)",
       },
       boxShadow: {
-        glow: "0 0 80px rgba(127,209,185,0.14)",
+        glow: "0 10px 34px rgba(91,140,255,0.3)",
       },
       fontFamily: {
-        display: ["var(--font-space-grotesk)", "sans-serif"],
-        body: ["var(--font-inter)", "sans-serif"],
+        display: ["var(--font-sora)", "sans-serif"],
+        body: ["var(--font-ibm-plex-sans)", "sans-serif"],
       },
       // Semantic type scale — used via text-display / text-title / text-body, etc.
       fontSize: {
@@ -59,9 +58,19 @@ const config: Config = {
           "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
+        floaty: {
+          "0%, 100%": { transform: "translateY(0) rotate(0deg)" },
+          "50%": { transform: "translateY(-14px) rotate(-2deg)" },
+        },
       },
       animation: {
         fadeUp: "fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) both",
+        marquee: "marquee 34s linear infinite",
+        floaty: "floaty 6s ease-in-out infinite",
       },
     },
   },

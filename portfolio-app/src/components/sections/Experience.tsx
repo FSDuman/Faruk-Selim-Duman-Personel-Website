@@ -27,7 +27,7 @@ export function Experience() {
         className="relative pl-9 sm:pl-10 flex flex-col gap-3"
       >
         {/* Timeline vertical bar */}
-        <div className="absolute left-[5px] top-4 bottom-4 w-0.5 bg-gradient-to-b from-mint to-mint/15" />
+        <div className="absolute left-[5px] top-4 bottom-4 w-0.5 bg-gradient-to-b from-accent to-accent/15" />
 
         {experience.map((e, idx) => {
           const visual = getVisual(idx);
@@ -50,7 +50,7 @@ export function Experience() {
               {/* Bullet circle dot marker */}
               <span
                 className={cn(
-                  "absolute left-[-39px] sm:left-[-40px] top-[32px] w-3 h-3 rounded-full bg-mint transition-all duration-300 ring-4 ring-bg",
+                  "absolute left-[-39px] sm:left-[-40px] top-[32px] w-3 h-3 rounded-full bg-accent transition-all duration-300 ring-4 ring-bg",
                   visual.active
                     ? "shadow-[0_0_12px_rgba(127,209,185,0.8)] scale-110"
                     : "scale-100 opacity-80"
@@ -74,7 +74,7 @@ export function Experience() {
 
               {/* Role & Bullets */}
               <div>
-                <h4 className="font-display font-semibold text-[17px] text-mint">
+                <h4 className="font-display font-semibold text-[17px] text-accent">
                   {t(e.role)}
                 </h4>
                 <ul
@@ -90,7 +90,7 @@ export function Experience() {
                       key={bIdx}
                       className="flex gap-3 text-[14.5px] leading-relaxed text-text-secondary text-pretty"
                     >
-                      <span className="text-mint flex-shrink-0 select-none mt-0.5">▹</span>
+                      <span className="text-accent flex-shrink-0 select-none mt-0.5">▹</span>
                       <span>{t(b)}</span>
                     </li>
                   ))}

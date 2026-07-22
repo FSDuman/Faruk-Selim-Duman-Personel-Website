@@ -3,10 +3,12 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
+import { Marquee } from "@/components/sections/Marquee";
 import { Section } from "@/components/ui/Section";
 import { About } from "@/components/sections/About";
 import { Experience } from "@/components/sections/Experience";
 import { Work } from "@/components/sections/Work";
+import { OffTheClock } from "@/components/sections/OffTheClock";
 import { Contact } from "@/components/sections/Contact";
 import { useLocale } from "@/lib/locale-context";
 import { ui } from "@/lib/i18n";
@@ -17,8 +19,9 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main id="top">
+      <main>
         <Hero />
+        <Marquee />
 
         <Section id="about">
           <About />
@@ -41,6 +44,8 @@ export default function Home() {
         >
           <Work />
         </Section>
+
+        <OffTheClock />
 
         <Section id="contact">
           <Contact />

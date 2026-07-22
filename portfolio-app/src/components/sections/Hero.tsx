@@ -1,139 +1,108 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { Suspense, useEffect, useRef, useState } from "react";
-import { useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import { ui } from "@/lib/i18n";
 import { useLocale } from "@/lib/locale-context";
-import { isWebGLAvailable } from "@/lib/webgl";
+import { profile } from "@/data/profile";
+import { heroStats } from "@/data/hero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 
-// Client-only: R3F must not run on the server. Skeleton matches final framing
-// (full-bleed, same box) so there is no layout shift when it swaps in.
-const HeroCanvas = dynamic(
-  () => import("@/components/three/HeroCanvas").then((m) => m.HeroCanvas),
-  { ssr: false, loading: () => <HeroPoster /> }
-);
-
-// Static poster: dim radial mint glow + faint node grid. Doubles as the
-// no-WebGL / reduced-motion fallback so the canvas box is never blank.
-function HeroPoster() {
-  return (
-    <div
-      aria-hidden
-      className="absolute inset-0"
-      style={{
-        background:
-          "radial-gradient(closest-side at 62% 45%, rgba(127,209,185,0.14), transparent 70%)",
-      }}
-    >
-      <div
-        className="absolute inset-0 opacity-[0.35]"
-        style={{
-          backgroundImage:
-            "radial-gradient(rgba(127,209,185,0.25) 1px, transparent 1.5px)",
-          backgroundSize: "34px 34px",
-          maskImage:
-            "radial-gradient(closest-side at 62% 45%, #000, transparent 72%)",
-          WebkitMaskImage:
-            "radial-gradient(closest-side at 62% 45%, #000, transparent 72%)",
-        }}
-      />
-    </div>
-  );
-}
-
 export function Hero() {
   const { t } = useLocale();
-  const reduced = useReducedMotion();
-  const scrollRef = useRef(0);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  const [webgl, setWebgl] = useState<boolean | null>(null);
-  const [inView, setInView] = useState(true);
-
-  useEffect(() => setWebgl(isWebGLAvailable()), []);
-
-  // Scroll progress across the hero → sequences the scene's resolve.
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const onScroll = () => {
-      const h = el.offsetHeight || window.innerHeight;
-      scrollRef.current = Math.min(Math.max(window.scrollY / h, 0), 1);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Pause the render loop when the hero leaves the viewport.
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => setInView(e.isIntersecting),
-      { threshold: 0.01 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  const showCanvas = webgl === true;
-  const frozen = !!reduced; // freeze animation, keep a static render
 
   return (
     <section
-      ref={sectionRef}
-      className="relative flex min-h-[100svh] items-center overflow-hidden"
+      id="top"
+      className="relative min-h-[100svh] overflow-hidden pb-10 pt-32"
     >
-      {/* 3D layer — behind the text, never gates it */}
-      <div className="pointer-events-none absolute inset-0">
-        {showCanvas ? (
-          <Suspense fallback={<HeroPoster />}>
-            <HeroCanvas scrollRef={scrollRef} paused={!inView} frozen={frozen} />
-          </Suspense>
-        ) : (
-          <HeroPoster />
-        )}
-      </div>
-
-      {/* Legibility scrim so text holds contrast over the brightest reveal */}
       <div
         aria-hidden
-        className="absolute inset-0 bg-gradient-to-r from-bg via-bg/85 to-transparent"
+        className="pointer-events-none absolute left-[-8%] top-[6%] h-[640px] w-[640px] rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(91,140,255,0.12), transparent 62%)",
+        }}
       />
 
-      {/* Text — plain DOM, paints within ~1s regardless of the 3D layer */}
-      <Container className="relative z-10 py-32">
-        <Badge tone="mint" dot className="animate-fadeUp">
-          {t(ui.heroBadge)}
-        </Badge>
-        <h1 className="mt-6 max-w-4xl font-display font-bold text-display text-text">
-          Faruk Selim Duman
-        </h1>
-        <p className="mt-5 max-w-2xl font-display font-medium text-body-lg text-mint">
-          {t(ui.heroTitle)}
-        </p>
-        <p className="mt-6 max-w-prose text-body-lg text-text-secondary">
-          {t(ui.heroIntro1)}
-          <br className="hidden sm:block" /> {t(ui.heroIntro2)}
-        </p>
-        <div className="mt-9 flex flex-wrap gap-4">
-          <Button href="#work" variant="primary">
-            {t(ui.ctaProjects)} →
-          </Button>
-          <Button href="#contact" variant="ghost">
-            {t(ui.ctaContact)}
-          </Button>
-        </div>
-        {showCanvas && !frozen && (
-          <p className="mt-10 text-small text-text-secondary/80">
-            {t(ui.heroHint)}
+      <Container className="relative grid grid-cols-1 items-end gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+        <div className="relative z-10">
+          <div className="mb-7 flex flex-wrap items-center gap-4">
+            <Badge tone="accent" dot className="animate-fadeUp">
+              {t(ui.heroBadge)}
+            </Badge>
+            <span className="font-display text-xs uppercase tracking-[0.15em] text-text-secondary/70">
+              {t(ui.labelSince)}
+            </span>
+          </div>
+
+          <h1 className="font-display text-[clamp(3.25rem,8.4vw,7.75rem)] font-extrabold leading-[0.9] tracking-[-0.06em]">
+            <span className="block text-white">FARUK</span>
+            <span className="block text-white">SELIM</span>
+            <span className="block text-accent">
+              DUMAN<span className="text-text-secondary/40">.</span>
+            </span>
+          </h1>
+
+          <p className="mt-6 max-w-xl font-display text-[clamp(0.95rem,1.7vw,1.25rem)] font-semibold leading-snug text-text">
+            {t(ui.heroTitle)}
           </p>
-        )}
+          <p className="mt-5 max-w-lg text-pretty text-[15.5px] leading-relaxed text-text-secondary">
+            {t(ui.heroBlurb)}
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-3.5">
+            <Button href="#work" variant="primary">
+              {t(ui.ctaProjects)} →
+            </Button>
+            <Button href="#contact" variant="ghost">
+              {t(ui.ctaContact)}
+            </Button>
+          </div>
+
+          <div className="mt-10 flex flex-wrap gap-10 border-t border-line pt-6.5">
+            {heroStats.map((s, i) => (
+              <div key={i}>
+                <div className="font-display text-[30px] font-extrabold leading-none text-white">
+                  {s.num}
+                </div>
+                <div className="mt-1.5 max-w-[140px] text-xs leading-snug text-text-secondary/80">
+                  {t(s.label)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative self-end">
+          <span className="absolute -top-8 right-0.5 font-display text-xs tracking-[0.2em] text-text-secondary/60">
+            {t(ui.labelYear)}
+          </span>
+          <div className="relative overflow-hidden rounded-2xl shadow-[0_40px_90px_-30px_rgba(0,0,0,0.8)]">
+            <Image
+              src="/images/faruk.jpg"
+              alt={profile.name}
+              width={720}
+              height={960}
+              priority
+              className="block aspect-[3/4] w-full object-cover object-top"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, transparent 55%, rgba(7,11,22,0.72))",
+              }}
+            />
+            <div className="absolute bottom-4 left-4.5 flex items-center gap-2 rounded-full border border-line bg-bg/55 px-3.5 py-2 font-display text-xs font-semibold text-text backdrop-blur-md">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              {profile.location}
+            </div>
+          </div>
+          <div className="absolute -bottom-3.5 -right-3.5 -z-10 h-[120px] w-[120px] rounded-2xl border border-accent opacity-35" />
+        </div>
       </Container>
     </section>
   );
