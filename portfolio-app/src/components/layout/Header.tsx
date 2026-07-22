@@ -46,13 +46,12 @@ export function Header() {
         <a
           href="#top"
           onClick={() => setOpen(false)}
-          className="group flex items-center gap-2.5 font-display font-semibold tracking-tight"
+          className="flex items-center gap-2.5 font-display text-[15px] font-extrabold tracking-tight text-text"
         >
-          <span className="relative flex h-2 w-2 shrink-0">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-50 duration-1000 group-hover:opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-mint" />
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent text-[14px] font-extrabold text-bg">
+            FD
           </span>
-          <span className="text-[15px] text-text">Faruk Selim Duman</span>
+          FARUK SELIM DUMAN
         </a>
 
         <div className="flex items-center gap-3 sm:gap-6">
@@ -72,7 +71,7 @@ export function Header() {
             type="button"
             onClick={toggle}
             aria-label={t(ui.langLabel)}
-            className="flex items-center gap-1.5 rounded-lg border border-line bg-white/[0.02] px-3 py-1.5 font-display text-xs font-semibold tracking-wide transition-colors hover:border-mint"
+            className="flex items-center gap-1.5 rounded-lg border border-line bg-white/[0.02] px-3 py-1.5 font-display text-xs font-semibold tracking-wide transition-colors hover:border-accent"
           >
             <span className={locale === "en" ? "text-text" : "text-text-secondary"}>
               EN

@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Sora, IBM_Plex_Sans } from "next/font/google";
 import { profile } from "@/data/profile";
 import { LocaleProvider } from "@/lib/locale-context";
 import "./globals.css";
 
 // latin-ext carries Turkish glyphs (ı İ ğ ş ç ö ü). Self-hosted via next/font,
 // so no render-blocking Google request — friendly to the Lighthouse target.
-const spaceGrotesk = Space_Grotesk({
+const sora = Sora({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-space-grotesk",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-sora",
   display: "swap",
 });
 
-const inter = Inter({
+const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600"],
-  variable: "--font-inter",
+  variable: "--font-ibm-plex-sans",
   display: "swap",
 });
 
@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${inter.variable}`}
+      className={`${sora.variable} ${ibmPlexSans.variable}`}
     >
       <body className="bg-bg font-body text-text antialiased">
         <LocaleProvider>{children}</LocaleProvider>

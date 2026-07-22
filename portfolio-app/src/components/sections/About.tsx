@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { profile } from "@/data/profile";
 import { skills, certifications } from "@/data/skills";
 import { useLocale } from "@/lib/locale-context";
 import { ui } from "@/lib/i18n";
+import { EcosystemCanvas } from "@/components/graphics/EcosystemCanvas";
 
 export function About() {
   const { t, locale } = useLocale();
@@ -17,77 +17,75 @@ export function About() {
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 items-center">
-      {/* Profile Image container with border accent */}
-      <div className="relative mx-auto w-full max-w-[360px] lg:max-w-none">
-        <div className="absolute -inset-3.5 border border-mint/45 rounded-[18px] pointer-events-none" />
-        <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-surface border border-line">
-          <Image
-            src="/images/faruk.jpg"
-            alt={profile.name}
-            fill
-            className="object-cover grayscale-[15%] contrast-[102%] transition-all duration-300 hover:grayscale-0"
-            sizes="(max-width: 1024px) 360px, 450px"
-            priority
-          />
-        </div>
-      </div>
-
+    <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
       {/* Profile details */}
       <div>
-        <p className="font-display font-medium uppercase text-kicker text-mint">
+        <p className="font-display text-kicker font-medium uppercase text-accent">
           {t(ui.aboutKicker)}
         </p>
-        <h2 className="mt-4 font-display font-bold text-title text-text">
+        <h2 className="mt-4 font-display text-title font-bold text-text">
           {t(ui.aboutTitle)}
         </h2>
-        <p className="mt-6 text-body text-text-secondary leading-relaxed text-pretty">
+        <p className="mt-6 text-pretty text-body leading-relaxed text-text-secondary">
           {t(ui.aboutP1)}
         </p>
-        <p className="mt-5 text-body text-text-secondary leading-relaxed text-pretty">
+        <p className="mt-5 text-pretty text-body leading-relaxed text-text-secondary">
           {t(ui.aboutP2)}
         </p>
 
         {/* Facts grid */}
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-5">
+        <div className="mt-8 grid grid-cols-1 gap-x-7 gap-y-5 sm:grid-cols-2">
           {facts.map((fact, idx) => (
-            <div key={idx} className="border-l-2 border-mint pl-4.5">
-              <span className="block text-[11.5px] font-semibold tracking-wider uppercase text-text-secondary">
+            <div key={idx} className="border-l-2 border-accent pl-4.5">
+              <span className="block text-[11.5px] font-semibold uppercase tracking-wider text-text-secondary">
                 {fact.k}
               </span>
-              <span className="block mt-1.5 text-[14.5px] font-medium text-text">
+              <span className="mt-1.5 block text-[14.5px] font-medium text-text">
                 {fact.v}
               </span>
             </div>
           ))}
         </div>
+
+        <h3 className="mb-4 mt-9 text-small font-semibold uppercase tracking-wide text-text-secondary">
+          {t(ui.skillsLabel)}
+        </h3>
+        <div className="flex flex-wrap gap-2.5">
+          {skills.map((sk, idx) => (
+            <span
+              key={idx}
+              className="rounded-lg border border-line bg-white/[0.02] px-3.5 py-2 text-small font-medium text-text transition-colors hover:border-accent/50"
+            >
+              {t(sk)}
+            </span>
+          ))}
+        </div>
       </div>
 
-      {/* Expertise & Certifications rows (spanning full width below the grid) */}
-      <div className="lg:col-span-2 mt-10">
-        <div className="border-t border-line pt-10">
-          <h3 className="text-small font-semibold text-text-secondary mb-4 uppercase tracking-wide">
-            {t(ui.skillsLabel)}
-          </h3>
-          <div className="flex flex-wrap gap-2.5">
-            {skills.map((sk, idx) => (
-              <span
-                key={idx}
-                className="rounded-lg border border-line bg-white/[0.02] px-3.5 py-2 text-small font-medium text-text hover:border-mint/50 transition-colors"
-              >
-                {t(sk)}
-              </span>
-            ))}
+      {/* Ecosystem visual + certifications */}
+      <div>
+        <div className="relative aspect-square overflow-hidden rounded-2xl border border-line bg-surface">
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 45%, rgba(91,140,255,0.08), rgba(9,13,24,0.9))",
+            }}
+          />
+          <EcosystemCanvas />
+          <div className="absolute left-4 top-3.5 font-display text-[11px] uppercase tracking-[0.15em] text-text-secondary/70">
+            {t(ui.stackLabel)}
           </div>
         </div>
 
-        <div className="mt-9 flex flex-wrap gap-3">
+        <div className="mt-3.5 flex flex-wrap gap-2.5">
           {certifications.map((c, idx) => (
             <span
               key={idx}
-              className="inline-flex items-center gap-2 rounded-lg border border-mint/20 bg-mint/[0.08] px-4 py-2.5 text-xs font-semibold text-mint-hi"
+              className="inline-flex items-center gap-2 rounded-lg border border-accent/20 bg-accent/[0.08] px-3.5 py-2 text-[12.5px] font-medium text-accent-hi"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-mint" />
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
               {c.name}
             </span>
           ))}
