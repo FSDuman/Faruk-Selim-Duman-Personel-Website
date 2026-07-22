@@ -77,14 +77,7 @@ export function Experience() {
                 <h4 className="font-display font-semibold text-[17px] text-accent">
                   {t(e.role)}
                 </h4>
-                <ul
-                  className={cn(
-                    "flex flex-col gap-3.5 list-none overflow-hidden transition-[max-height,opacity,margin] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
-                    visual.expanded
-                      ? "mt-4.5 max-h-[600px] opacity-100"
-                      : "mt-0 max-h-0 opacity-0 pointer-events-none"
-                  )}
-                >
+                <ul className="mt-4.5 flex flex-col gap-3.5 list-none">
                   {e.bullets.map((b, bIdx) => (
                     <li
                       key={bIdx}

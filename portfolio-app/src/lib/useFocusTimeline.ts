@@ -6,7 +6,6 @@ export type TimelineMode = "resting" | "focus";
 
 export interface EntryVisual {
   active: boolean;
-  expanded: boolean;
   opacity: number;
   blur: number; // px, stepped: 0 / 2 / 4 / 6
   scale: number;
@@ -256,16 +255,15 @@ export function useFocusTimeline(
       const keyboardFocused = focused === i;
       const isActive = i === active || keyboardFocused;
 
-      // Resting = accessible baseline: everything equal, everything expanded.
+      // Resting = accessible baseline: everything equal.
       if (mode === "resting") {
-        return { active: false, expanded: true, opacity: 1, blur: 0, scale: 1, elevated: false };
+        return { active: false, opacity: 1, blur: 0, scale: 1, elevated: false };
       }
 
       // Reduced motion: opacity only, no blur/scale/translate.
       if (reduced) {
         return {
           active: isActive,
-          expanded: isActive,
           opacity: isActive ? 1 : 0.6,
           blur: 0,
           scale: 1,
@@ -279,7 +277,7 @@ export function useFocusTimeline(
       const opacity = isActive ? 1 : Math.max(0.35, 1 - dist * 0.22);
       const scale = isActive ? (isTouch ? 1.03 : 1.08) : 1;
 
-      return { active: isActive, expanded: isActive, opacity, blur, scale, elevated: isActive };
+      return { active: isActive, opacity, blur, scale, elevated: isActive };
     },
     [active, focused, mode, reduced, isTouch]
   );
