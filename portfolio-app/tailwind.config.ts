@@ -3,6 +3,7 @@ import type { Config } from "tailwindcss";
 // Single source of truth for color + type tokens. Components reference these
 // tokens only — no raw hex in JSX/CSS.
 const config: Config = {
+  darkMode: "class",
   content: [
     "./src/app/**/*.{ts,tsx,mdx}",
     "./src/components/**/*.{ts,tsx,mdx}",
@@ -10,24 +11,25 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#070B16",
-        surface: "#0E1526",
+        bg: "rgb(var(--color-bg) / <alpha-value>)",
+        surface: "rgb(var(--color-surface) / <alpha-value>)",
         text: {
-          DEFAULT: "#E8ECF4",
-          secondary: "#A9B6CD",
+          DEFAULT: "rgb(var(--color-text) / <alpha-value>)",
+          secondary: "rgb(var(--color-text-secondary) / <alpha-value>)",
         },
         accent: {
-          DEFAULT: "#5B8CFF",
-          hi: "#8FB4FF",
+          DEFAULT: "rgb(var(--color-accent) / <alpha-value>)",
+          hi: "rgb(var(--color-accent-hi) / <alpha-value>)",
+          ink: "rgb(var(--color-accent-ink) / <alpha-value>)",
         },
-        coral: "#E39A94",
-        line: "rgba(255,255,255,0.08)",
+        coral: "rgb(var(--color-coral) / <alpha-value>)",
+        line: "var(--color-line)",
       },
       boxShadow: {
         glow: "0 10px 34px rgba(91,140,255,0.3)",
       },
       fontFamily: {
-        display: ["var(--font-sora)", "sans-serif"],
+        display: ["var(--font-display)", "sans-serif"],
         body: ["var(--font-ibm-plex-sans)", "sans-serif"],
       },
       // Semantic type scale — used via text-display / text-title / text-body, etc.

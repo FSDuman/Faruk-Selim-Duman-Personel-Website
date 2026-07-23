@@ -1,15 +1,22 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useTheme } from "@/lib/theme-context";
 
 const SATELLITES = ["n8n", "MuleSoft", ".NET", "Agentforce", "Data Cloud", "Omni-Channel"];
 const ACCENT: [number, number, number] = [91, 140, 255]; // rgb of tailwind `accent`
+
+const HUB_COLORS = {
+  light: { fill: "#fbfaf6", text: "#16130f", label: "rgba(50,45,38,0.62)" },
+  dark: { fill: "#0a1120", text: "#eaf0fb", label: "rgba(200,212,232,0.72)" },
+};
 
 // Small 2D orbit diagram: satellites revolving around a "Salesforce" hub,
 // with a traveling pulse per spoke. Freezes to a single frame under
 // prefers-reduced-motion instead of animating.
 export function EcosystemCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -17,6 +24,7 @@ export function EcosystemCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const hub = HUB_COLORS[theme];
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const [ar, ag, ab] = ACCENT;
     const rgba = (a: number) => `rgba(${ar},${ag},${ab},${a})`;
@@ -73,7 +81,7 @@ export function EcosystemCanvas() {
         ctx.fill();
       });
 
-      ctx.font = "500 12px Sora, sans-serif";
+      ctx.font = "500 12px 'Bricolage Grotesque', sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       nodes.forEach((n) => {
@@ -86,7 +94,7 @@ export function EcosystemCanvas() {
         ctx.strokeStyle = rgba(0.28);
         ctx.lineWidth = 1;
         ctx.stroke();
-        ctx.fillStyle = "rgba(200,212,232,0.72)";
+        ctx.fillStyle = hub.label;
         ctx.fillText(n.label, n.x, n.y + 24);
       });
 
@@ -102,13 +110,13 @@ export function EcosystemCanvas() {
 
       ctx.beginPath();
       ctx.arc(cx, cy, 26, 0, Math.PI * 2);
-      ctx.fillStyle = "#0a1120";
+      ctx.fillStyle = hub.fill;
       ctx.fill();
       ctx.strokeStyle = rgba(0.7);
       ctx.lineWidth = 1.5;
       ctx.stroke();
-      ctx.font = "700 13px Sora, sans-serif";
-      ctx.fillStyle = "#eaf0fb";
+      ctx.font = "700 13px 'Bricolage Grotesque', sans-serif";
+      ctx.fillStyle = hub.text;
       ctx.fillText("Salesforce", cx, cy);
 
       if (!reduced) raf = requestAnimationFrame(frame);
@@ -119,7 +127,7 @@ export function EcosystemCanvas() {
       window.removeEventListener("resize", resize);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [theme]);
 
   return <canvas ref={canvasRef} className="block h-full w-full" />;
 }

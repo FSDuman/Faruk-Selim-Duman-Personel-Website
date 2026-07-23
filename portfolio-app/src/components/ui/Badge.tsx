@@ -6,7 +6,7 @@ const tones: Record<Tone, string> = {
   // accent = interactive/primary status; coral = emphasis only; neutral = quiet meta.
   accent: "border-accent/25 bg-accent/[0.08] text-accent",
   coral: "border-coral/25 bg-coral/[0.08] text-coral",
-  neutral: "border-line bg-white/[0.03] text-text-secondary",
+  neutral: "border-line bg-text/[0.03] text-text-secondary",
 };
 
 export function Badge({

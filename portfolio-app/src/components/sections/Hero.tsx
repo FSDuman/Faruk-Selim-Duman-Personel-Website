@@ -40,8 +40,8 @@ export function Hero() {
 
           <Reveal delay={0.08}>
             <h1 className="font-display text-[clamp(3.25rem,8.4vw,7.75rem)] font-extrabold leading-[0.9] tracking-[-0.06em]">
-              <span className="block text-white">FARUK</span>
-              <span className="block text-white">SELIM</span>
+              <span className="block text-text">FARUK</span>
+              <span className="block text-text">SELIM</span>
               <span className="block text-accent">
                 DUMAN<span className="text-text-secondary/40">.</span>
               </span>
@@ -74,7 +74,7 @@ export function Hero() {
           >
             {heroStats.map((s, i) => (
               <div key={i}>
-                <div className="font-display text-[30px] font-extrabold leading-none text-white">
+                <div className="font-display text-[30px] font-extrabold leading-none text-text">
                   {s.num}
                 </div>
                 <div className="mt-1.5 max-w-[140px] text-xs leading-snug text-text-secondary/80">
@@ -89,7 +89,7 @@ export function Hero() {
           <span className="absolute -top-8 right-0.5 font-display text-xs tracking-[0.2em] text-text-secondary/60">
             {t(ui.labelYear)}
           </span>
-          <div className="relative overflow-hidden rounded-2xl shadow-[0_40px_90px_-30px_rgba(0,0,0,0.8)]">
+          <div className="relative overflow-hidden rounded-2xl shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)]">
             <Image
               src="/images/faruk.jpg"
               alt={profile.name}
@@ -106,7 +106,7 @@ export function Hero() {
                   "linear-gradient(180deg, transparent 55%, rgba(7,11,22,0.72))",
               }}
             />
-            <div className="absolute bottom-4 left-4.5 flex items-center gap-2 rounded-full border border-line bg-bg/55 px-3.5 py-2 font-display text-xs font-semibold text-text backdrop-blur-md">
+            <div className="absolute bottom-4 left-4.5 flex items-center gap-2 rounded-full border border-black/[0.14] bg-white/70 px-3.5 py-2 font-display text-xs font-semibold text-text backdrop-blur-md">
               <span className="h-1.5 w-1.5 rounded-full bg-accent" />
               {profile.location}
             </div>

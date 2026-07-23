@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
-import { Sora, IBM_Plex_Sans } from "next/font/google";
+import { Bricolage_Grotesque, IBM_Plex_Sans } from "next/font/google";
 import { profile } from "@/data/profile";
 import { LocaleProvider } from "@/lib/locale-context";
+import { ThemeProvider } from "@/lib/theme-context";
 import "./globals.css";
+
+// Runs before hydration so a saved theme applies with no flash. Light is
+// the default for first-time visitors — no prefers-color-scheme fallback.
+const THEME_BOOTSTRAP = `(function(){try{var k="fd-theme",s=localStorage.getItem(k);document.documentElement.classList.toggle("dark",s==="dark");}catch(e){}})();`;
 
 // latin-ext carries Turkish glyphs (ı İ ğ ş ç ö ü). Self-hosted via next/font,
 // so no render-blocking Google request — friendly to the Lighthouse target.
-const sora = Sora({
+const bricolageGrotesque = Bricolage_Grotesque({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-sora",
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -39,10 +44,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sora.variable} ${ibmPlexSans.variable}`}
+      className={`${bricolageGrotesque.variable} ${ibmPlexSans.variable}`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
+      </head>
       <body className="bg-bg font-body text-text antialiased">
-        <LocaleProvider>{children}</LocaleProvider>
+        <ThemeProvider>
+          <LocaleProvider>{children}</LocaleProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

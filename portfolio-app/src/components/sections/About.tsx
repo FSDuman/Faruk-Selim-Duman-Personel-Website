@@ -61,7 +61,7 @@ export function About() {
             {skills.map((sk, idx) => (
               <span
                 key={idx}
-                className="rounded-lg border border-line bg-white/[0.02] px-3.5 py-2 text-small font-medium text-text transition-colors hover:border-accent/50"
+                className="rounded-lg border border-line bg-text/[0.025] px-3.5 py-2 text-small font-medium text-text transition-colors hover:border-accent/50"
               >
                 {t(sk)}
               </span>
@@ -78,7 +78,7 @@ export function About() {
             className="absolute inset-0"
             style={{
               background:
-                "radial-gradient(circle at 50% 45%, rgba(91,140,255,0.08), rgba(9,13,24,0.9))",
+                "radial-gradient(circle at 50% 45%, rgba(91,140,255,0.07), rgb(var(--color-surface) / 0.9))",
             }}
           />
           <EcosystemCanvas />

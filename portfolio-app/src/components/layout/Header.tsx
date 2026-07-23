@@ -5,6 +5,7 @@ import { cn } from "@/lib/cn";
 import { ui } from "@/lib/i18n";
 import { useLocale } from "@/lib/locale-context";
 import { Container } from "@/components/ui/Container";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const NAV = [
   { key: "navAbout", href: "#about" },
@@ -48,7 +49,7 @@ export function Header() {
           onClick={() => setOpen(false)}
           className="flex items-center gap-2.5 font-display text-[15px] font-extrabold tracking-tight text-text"
         >
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent text-[14px] font-extrabold text-bg">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent text-[14px] font-extrabold text-accent-ink">
             FD
           </span>
           FARUK SELIM DUMAN
@@ -67,11 +68,13 @@ export function Header() {
             ))}
           </nav>
 
+          <ThemeToggle />
+
           <button
             type="button"
             onClick={toggle}
             aria-label={t(ui.langLabel)}
-            className="flex items-center gap-1.5 rounded-lg border border-line bg-white/[0.02] px-3 py-1.5 font-display text-xs font-semibold tracking-wide transition-colors hover:border-accent"
+            className="flex items-center gap-1.5 rounded-lg border border-line bg-text/[0.03] px-3 py-1.5 font-display text-xs font-semibold tracking-wide transition-colors hover:border-accent"
           >
             <span className={locale === "en" ? "text-text" : "text-text-secondary"}>
               EN

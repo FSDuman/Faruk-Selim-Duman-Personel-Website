@@ -11,7 +11,7 @@ export function Footer() {
       <Container>
         <div
           aria-hidden
-          className="select-none text-center font-display text-[clamp(3.5rem,15vw,13.75rem)] font-extrabold leading-[0.82] tracking-[-0.08em] text-white/5"
+          className="select-none text-center font-display text-[clamp(3.5rem,15vw,13.75rem)] font-extrabold leading-[0.82] tracking-[-0.08em] text-text/[0.06]"
         >
           DUMAN
         </div>

@@ -13,11 +13,7 @@ export function OffTheClock() {
     <section className="py-10 sm:py-16">
       <Container>
         <div
-          className="grid grid-cols-1 items-center gap-12 rounded-3xl border border-line p-10 sm:p-12 lg:grid-cols-[0.9fr_1.1fr]"
-          style={{
-            background:
-              "linear-gradient(150deg, rgba(20,28,48,0.5), rgba(11,16,30,0.3))",
-          }}
+          className="grid grid-cols-1 items-center gap-12 rounded-3xl border border-line bg-surface p-10 sm:p-12 lg:grid-cols-[0.9fr_1.1fr]"
         >
           <Reveal className="flex items-center justify-center">
             <Image

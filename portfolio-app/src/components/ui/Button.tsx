@@ -12,7 +12,7 @@ const base =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-accent text-bg px-6 py-3.5 shadow-glow hover:bg-accent-hi",
+  primary: "bg-accent text-accent-ink px-6 py-3.5 shadow-glow hover:bg-accent-hi",
   ghost:
     "border border-line px-6 py-3.5 text-text hover:border-accent hover:text-accent",
 };
