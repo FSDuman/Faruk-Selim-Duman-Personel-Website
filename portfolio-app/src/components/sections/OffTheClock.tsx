@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ui } from "@/lib/i18n";
 import { useLocale } from "@/lib/locale-context";
 import { Container } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Motion";
 
 export function OffTheClock() {
   const { t } = useLocale();
@@ -18,7 +19,7 @@ export function OffTheClock() {
               "linear-gradient(150deg, rgba(20,28,48,0.5), rgba(11,16,30,0.3))",
           }}
         >
-          <div className="flex items-center justify-center">
+          <Reveal className="flex items-center justify-center">
             <Image
               src="/images/frog.png"
               alt="A frog creature drawn in Procreate"
@@ -26,9 +27,9 @@ export function OffTheClock() {
               height={360}
               className="w-full max-w-[280px] animate-floaty rounded-3xl shadow-[0_30px_50px_rgba(0,0,0,0.5)]"
             />
-          </div>
+          </Reveal>
 
-          <div>
+          <Reveal delay={0.12}>
             <p className="font-display text-kicker font-medium uppercase text-accent">
               {t(ui.offKicker)}
             </p>
@@ -42,7 +43,7 @@ export function OffTheClock() {
               <span className="h-1.5 w-1.5 rounded-full bg-accent" />
               {t(ui.offNote)}
             </span>
-          </div>
+          </Reveal>
         </div>
       </Container>
     </section>

@@ -1,5 +1,6 @@
 import { cn } from "@/lib/cn";
 import { Container } from "./Container";
+import { Reveal } from "./Motion";
 
 // Standard section rhythm: anchor id + scroll offset, optional kicker/title header.
 // Typography + whitespace carry the hierarchy — no decorative dividers.
@@ -22,7 +23,7 @@ export function Section({
     <section id={id} className={cn("scroll-mt-24 py-24 sm:py-32", className)}>
       <Container>
         {(kicker || title || lead) && (
-          <header className="mb-14 max-w-prose">
+          <Reveal as="header" className="mb-14 max-w-prose">
             {kicker && (
               <p className="font-display font-medium uppercase text-kicker text-accent">
                 {kicker}
@@ -36,7 +37,7 @@ export function Section({
             {lead && (
               <p className="mt-4 text-body text-text-secondary">{lead}</p>
             )}
-          </header>
+          </Reveal>
         )}
         {children}
       </Container>
