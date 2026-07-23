@@ -50,7 +50,7 @@ export function Contact() {
             ref={magnetic.ref as React.Ref<HTMLAnchorElement>}
             style={magnetic.style}
             {...magnetic.handlers}
-            className="inline-flex items-center gap-2.5 bg-accent text-bg font-display font-bold text-body px-8 py-4.5 rounded-xl hover:shadow-[0_8px_32px_rgba(91,140,255,0.35)] transition-shadow duration-300"
+            className="inline-flex items-center gap-2.5 bg-accent text-accent-ink font-display font-bold text-body px-8 py-4.5 rounded-xl hover:shadow-[0_8px_32px_rgba(91,140,255,0.35)] transition-shadow duration-300"
           >
             <span className="text-lg">✉</span>
             {profile.email}
@@ -65,7 +65,7 @@ export function Contact() {
               href={cl.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-5 py-3 rounded-lg border border-line bg-white/[0.02] text-small font-medium text-text-secondary transition-colors hover:border-accent hover:text-text"
+              className="inline-flex items-center px-5 py-3 rounded-lg border border-line text-small font-medium text-text-secondary transition-colors hover:border-accent hover:text-text"
             >
               {cl.label}
             </a>

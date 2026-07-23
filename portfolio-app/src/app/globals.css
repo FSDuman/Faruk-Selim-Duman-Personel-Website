@@ -5,6 +5,33 @@
 :root {
   --font-sora: "Sora", sans-serif;
   --font-ibm-plex-sans: "IBM Plex Sans", sans-serif;
+
+  /* Light theme (default) — space-separated RGB so Tailwind's <alpha-value> works. */
+  --color-bg: 244 242 236;
+  --color-surface: 251 250 246;
+  --color-text: 26 23 18;
+  --color-text-secondary: 87 81 74;
+  --color-accent: 91 140 255;
+  --color-accent-hi: 143 180 255;
+  --color-accent-ink: 6 16 33;
+  --color-coral: 227 154 148;
+  --color-line: rgba(0, 0, 0, 0.09);
+  --scrollbar-track: rgb(var(--color-bg));
+  --scrollbar-thumb: rgba(0, 0, 0, 0.18);
+}
+
+:root.dark {
+  --color-bg: 7 11 22;
+  --color-surface: 14 21 38;
+  --color-text: 232 236 244;
+  --color-text-secondary: 169 182 205;
+  --color-accent: 91 140 255;
+  --color-accent-hi: 143 180 255;
+  --color-accent-ink: 6 16 33;
+  --color-coral: 227 154 148;
+  --color-line: rgba(255, 255, 255, 0.08);
+  --scrollbar-track: rgb(var(--color-bg));
+  --scrollbar-thumb: rgba(255, 255, 255, 0.18);
 }
 
 html {
@@ -12,27 +39,41 @@ html {
 }
 
 body {
-  background-color: #070b16;
-  color: #e8ecf4;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::selection {
-  background: rgba(91, 140, 255, 0.3);
-  color: #e8ecf4;
+  background: rgba(91, 140, 255, 0.28);
+  color: rgb(var(--color-text));
 }
 
-/* Thin, low-noise scrollbar to keep the dark canvas calm. */
+/* Thin, low-noise scrollbar to keep the canvas calm. */
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #070b16;
+  background: var(--scrollbar-track);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1f2831;
+  background: var(--scrollbar-thumb);
   border-radius: 6px;
+}
+
+/* Spotlight theme-toggle wipe: suppress the default cross-fade so our
+   custom clip-path circle (driven from theme-context.tsx) is the only
+   visible transition. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 2;
 }
 
 /* One confident hero. Everything else respects reduced-motion. */

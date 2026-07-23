@@ -1,9 +1,11 @@
 "use client";
 
+import { useRef } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { Marquee } from "@/components/sections/Marquee";
+import { Throwables } from "@/components/graphics/Throwables";
 import { Section } from "@/components/ui/Section";
 import { About } from "@/components/sections/About";
 import { Experience } from "@/components/sections/Experience";
@@ -15,13 +17,17 @@ import { ui } from "@/lib/i18n";
 
 export default function Home() {
   const { t } = useLocale();
+  const marqueeRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
       <Header />
-      <main>
+      <main className="relative">
+        <Throwables boundsRef={marqueeRef} />
         <Hero />
-        <Marquee />
+        <div ref={marqueeRef}>
+          <Marquee />
+        </div>
 
         <Section id="about">
           <About />

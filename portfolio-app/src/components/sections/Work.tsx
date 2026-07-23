@@ -12,15 +12,11 @@ function ProjectCard({ cs, idx }: { cs: Project; idx: number }) {
   return (
     <div
       ref={ref}
-      style={{
-        background:
-          "linear-gradient(160deg, rgba(20, 28, 48, 0.6), rgba(11, 16, 30, 0.4))",
-        ...style,
-      }}
+      style={style}
       {...handlers}
-      className="relative overflow-hidden border border-line rounded-2xl p-8 hover:border-accent/30 transition-[border-color] duration-300 group"
+      className="relative overflow-hidden border border-line bg-surface rounded-2xl p-8 hover:border-accent/30 transition-[border-color] duration-300 group"
     >
-      <span className="absolute top-5.5 right-6.5 font-display font-extrabold text-[44px] leading-none text-white/5">
+      <span className="absolute top-5.5 right-6.5 font-display font-extrabold text-[44px] leading-none text-text/[0.06]">
         {String(idx + 1).padStart(2, "0")}
       </span>
 
@@ -49,7 +45,7 @@ function ProjectCard({ cs, idx }: { cs: Project; idx: number }) {
         {cs.tags.map((tg, idx) => (
           <span
             key={idx}
-            className="text-[11.5px] font-semibold px-2.5 py-1.5 rounded-md bg-white/[0.04] border border-line text-text-secondary/90"
+            className="text-[11.5px] font-semibold px-2.5 py-1.5 rounded-md bg-text/[0.06] border border-line text-text-secondary/90"
           >
             {tg}
           </span>

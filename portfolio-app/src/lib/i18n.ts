@@ -17,6 +17,7 @@ export const ui: Record<string, Localized> = {
   ctaProjects: { en: "View case studies", tr: "Projeleri gör" },
   ctaContact: { en: "Get in touch", tr: "İletişime geç" },
   langLabel: { en: "Switch language", tr: "Dili değiştir" },
+  themeLabel: { en: "Switch theme", tr: "Temayı değiştir" },
   skipToContent: { en: "Skip to content", tr: "İçeriğe geç" },
   footerNote: {
     en: "Istanbul, Türkiye · Built with care",
